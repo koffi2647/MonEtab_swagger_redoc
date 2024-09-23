@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<style>
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+}
+
+.main-content {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group select, .form-actions button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-actions button {
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.form-actions button:hover {
+    background-color: #2980b9;
+}
+
+</style>
+
+
+
+    <main>
+        <h2 style="text-align: start">Rapport</h2>
+        <form method="POST" action="{% url 'report:generer' %}" target="_blank">
+            {% csrf_token %}
+            <select name="type" id="select" style="width: 250px; margin-right: 5%;" >
+                <option>Sélectionnez une option</option>
+                <option value="student">Liste des Élèves</option>
+                <option value="teacher">Liste des Professeurs</option>
+                <option value="user">Liste des Utilisateurs</option>
+            </select>
+            <div>
+                <button type="submit" name="button" value="pdf" style="margin-right: 5%; background-color: red;">Générer format PDF</button>
+                <button type="submit" name="button" value="excel">Générer format Excel</button>
+            </div>
+        </form>
+    </main>
+
+
+{% endblock %}

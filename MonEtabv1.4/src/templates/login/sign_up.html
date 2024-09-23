@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentification</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+    <div class="auth-container">
+        <h1>Mon Etab</h1>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="pseudo">Pseudo</label>
+                <input type="text" id="pseudo" name="pseudo" required>
+            </div>
+            <div class="input-group">
+                <label for="motdepasse">Mot de Passe</label>
+                <input type="password" id="motdepasse" name="password" required>
+            </div>
+            <button type="submit">Se Connecter</button>
+        </form>
+    </div>
+    <script src="{% static 'js/auth.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+  <head>
+    
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}"> 
+    <!-- CDN Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="{% static 'js/script.js' %}" defer></script>
+  </head>
+{% block content %}   
+      <!-- Main Content -->
+      <div class="flex-1 p-6">
+        <h1 class="text-2xl font-semibold mb-6">Tableau de bord</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Stat Box 1 -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-medium text-gray-600 mb-4">
+              Nombre d'élèves
+            </h3>
+            <p class="text-4xl font-bold">{{ nb_student }} élève(s)</p>
+          </div>
+          <!-- Stat Box 2 -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-medium text-gray-600 mb-4">
+              Nombre de professeurs
+            </h3>
+            <p class="text-4xl font-bold"> {{ nb_teacher }} professeur(s)</p>
+          </div>
+          <!-- Stat Box 3 -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-medium text-gray-600 mb-4">
+              Nombre d'utilisateurs
+            </h3>
+            <p class="text-4xl font-bold">{{ nb_user }} utilisateur(s)</p>
+          </div>
+          <!-- Stat Box 4 (Pie Chart) -->
+          <div class="bg-white p-6 rounded-lg shadow flex flex-col items-center">
+            <h3 class="text-lg font-medium text-gray-600 mb-4">
+              Élèves par genre
+            </h3>
+            <div class="relative w-full h-64">
+              <canvas id="pieChart"></canvas>
+            </div>
+            <div class="mt-4">
+              <ul class="list-none">
+                <li class="flex items-center mb-2">
+                  <span
+                    class="inline-block w-4 h-4 bg-blue-500 mr-2"
+                  ></span>
+                  Homme
+                </li>
+                <li class="flex items-center">
+                  <span
+                    class="inline-block w-4 h-4 bg-red-500 mr-2"
+                  ></span>
+                  Femme
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+{% endblock content %}  

@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mon Etab - utilisateurs</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body class="bg-gray-100 font-sans antialiased">
+    <div class="flex min-h-screen">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-green-800 text-white flex flex-col justify-between">
+        <div class="p-6">
+          <h2 class="text-3xl font-semibold text-center mb-8">Mon Etab</h2>
+          <nav>
+            <ul>
+              <li class="mb-4">
+                <a href="{% url 'dashboard:index' %}" class="hover:text-gray-400">Dashboard</a>
+              </li>
+              <li>   
+                <a
+                  href="{% url 'student:index' %}"
+                  class="text-blue-400 hover:text-blue-500 font-medium"
+                  >Elève</a
+                >
+              </li>
+              <li class="mb-4">
+                <a href="{% url 'teacher:index' %}" class="hover:text-gray-400">Professeurs</a>
+              </li>
+              <li class="mb-4">
+                <a href="{% url 'user:index' %}" class="hover:text-gray-400">Utilisateurs</a>
+              </li>
+              <li class="mb-4">
+                <a href="{% url 'adress:add' %}" class="hover:text-gray-400">Adresse</a>
+              </li>
+              <li class="mb-4">
+                <a href="{% url 'user:edition_school' %}" class="hover:text-gray-400">Paramètre de l'ecole</a>
+              </li>
+              <li class="mb-4">
+                <a href="{% url 'user:index_role' %}" class="hover:text-gray-400">Role Utilisateur</a>
+              </li>
+              <li class="mb-4">
+                <a href="{% url 'user:edition_setting' %}" class="hover:text-gray-400">Paramètre de l'application</a>
+              </li>
+              <li class="mb-4">
+                <a href="{% url 'student:list_card' %}" class="hover:text-gray-400">Carte d'étudiant</a>
+              </li>
+              <li class="mb-4">
+                <a href="{% url 'student:list_abs' %}" class="hover:text-gray-400">Absence</a>
+              </li>
+              <li class="mb-4">
+                <a href="{% url 'report:index' %}" class="hover:text-gray-400">Rapport</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="p-6">
+          <a
+            href="{% url 'user:sign_out' %}"
+            class="text-gray-400 hover:text-white flex items-center justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M7 10V4a3 3 0 016 0v6a3 3 0 11-6 0z"
+                clip-rule="evenodd"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M5 9a2 2 0 100-4 2 2 0 000 4zm10-2a2 2 0 110 4 2 2 0 010-4zm-2 8v2a3 3 0 01-6 0v-2a2 2 0 11-4 0v2a5 5 0 0010 0v-2a2 2 0 11-4 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Déconnexion
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      
+      {% block content %}
+
+      {% endblock content %}
+
+    </div>
+  </body>
+</html>

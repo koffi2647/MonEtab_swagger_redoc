@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+
+<!-- Main Content -->
+<div class="flex-1 p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-semibold">Élèves : {{ student_count }}</h1>
+    <a href="{% url 'student:add' %}" class="flex items-center text-blue-500 hover:text-blue-700">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      Nouvel élève
+    </a>
+  </div>
+  <div>
+    <form get="GET" action="">
+      <input type="text" value="{{ search_fields }}" placeholder="Rechercher....." name="search">
+      <input type="submit" value="Rechercher">
+    </form>
+  </div> <br>
+  <div class="bg-white p-6 rounded-lg shadow overflow-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Date de Naissance
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Prénom
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Nom
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Telephone
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Url picture
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Genre
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Matricule
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Téléphone du pére
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Adresse
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            User
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Etablissement
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        {% for student in students %}
+        <tr>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.birthday}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.first_name}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.last_name}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.phone_number}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.url_picture}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.gender}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.matricule}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.phone_number_father}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.adress.street}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.user.pseudo}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{student.user.school.name}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <a href="{% url 'student:update-student' student.id %}"
+              class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-4 rounded">
+              Modifier
+            </a>
+            <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded ml-2">
+              <a class="button" href="#popup{{student.id }}">Supprimer</a>
+            </button>
+          </td>
+          <div id="popup{{student.id }}" class="overlay">
+            <div class="popup">
+              <h2>ATTENTION !!!</h2>
+              <a class="close" href="#">&times;</a>
+              <div class="content">
+                Voulez-vous supprimer cet élève ?
+                <div>
+                  <a href="#" class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-4 rounded">Non</a>
+                  <a href="{% url 'student:delete-student' student.id %}"
+                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded">Oui</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

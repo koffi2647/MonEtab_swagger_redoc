@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<style>
+
+  /* Styles pour le pop-up */
+  .popup-overlay {
+      display: none; /* Masqué par défaut */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Couleur de l'overlay */
+      z-index: 1000; /* Au-dessus du contenu */
+      justify-content: center;
+      align-items: center;
+  }
+  
+  .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      text-align: center;
+      position: relative; /* Positionnement relatif pour le pop-up */
+      z-index: 1001; /* Au-dessus de l'overlay */
+  }
+  
+  /* Appliquer le flou uniquement à l'arrière-plan */
+  .blur {
+      filter: blur(5px);
+      position: relative;
+      z-index: 999; /* Sous le pop-up */
+  }
+      
+      
+  </style>
+
+<div class="flex-1 p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-semibold">utilisateurs: {{ user_count }}</h1>
+    <a href="{% url 'user:add' %}" class="flex items-center text-blue-500 hover:text-blue-700">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      Nouvel utilisateur
+    </a>
+  </div>
+  <div>
+    <form get="GET" action="">
+      <input type="text" value="{{ search_fields }}" placeholder="Rechercher....." name="search">
+      <input type="submit" value="Rechercher">
+    </form>
+  </div> <br>
+  <div class="bg-white p-6 rounded-lg shadow overflow-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Pseudo
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Date de création
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        {% for user in users %}
+        <tr>
+          <td class="px-6 py-4 whitespace-nowrap">{{user.username}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{user.created_at}}</td>
+
+          <td class="px-6 py-4 whitespace-nowrap">
+            <a href="{% url 'user:update-user' user.id %}"
+              class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-4 rounded">
+              Modifier
+            </a> 
+            <a href=""
+              class="bg-green-500 hover:bg-red-600 text-white font-bold py-1 px-5 rounded">
+              <button class="delete-button" onclick="confirmDelete(1)">Desactiver</button>
+            </a>
+
+          </td>
+        </tr>
+
+
+        <div id="confirmationPopup" class="popup-overlay">
+          <div class="popup-content">
+              <p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+              <a href="{% url 'user:desable_user' user.id %}">
+                <button id="confirmButton">Oui</button>
+              </a>
+              <button id="cancelButton">Non</button>
+          </div>
+        </div>
+
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<script>
+    
+  function confirmDelete() {
+  // Prévenir le comportement par défaut du lien
+  event.preventDefault();
+
+  // Obtenir les éléments
+  const popupOverlay = document.getElementById('confirmationPopup');
+  const body = document.body;
+  const deleteLink = document.getElementById('deleteLink');
+
+  // Afficher le pop-up
+  popupOverlay.style.display = 'flex'; // Affiche le pop-up
+  //body.classList.add('blur'); // Applique le flou à l'arrière-plan
+
+  // Gérer les boutons de confirmation
+  // document.getElementById('confirmButton').onclick = function() {
+  //     body.classList.remove('blur'); // Retirer le flou
+  //     popupOverlay.style.display = 'none'; // Masquer le pop-up
+  //     window.location.href = deleteLink.href; // Rediriger vers l'URL de suppression
+  // };
+
+  document.getElementById('cancelButton').onclick = function() {
+      popupOverlay.style.display = 'none'; // Masquer le pop-up
+      //body.classList.remove('blur'); // Retirer le flou
+  };
+}
+
+
+</script>
+
+
+{% endblock content %}
